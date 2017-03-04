@@ -18,6 +18,7 @@
   "homepage": "https://github.com/gabrielsixel/frontend-nanodegree-mobile-portfolio#readme",
   "devDependencies": {
     "grunt": "^1.0.1",
+    "grunt-assets-inline": "^0.1.19",
     "grunt-contrib-cssmin": "^2.0.0",
     "grunt-contrib-imagemin": "^1.0.1",
     "grunt-contrib-uglify": "^2.2.0",

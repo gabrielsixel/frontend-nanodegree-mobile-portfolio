@@ -42,11 +42,11 @@ module.exports = function(grunt) {
           collapseWhitespace: true
         },
         files: {                                   // Dictionary of files
-          'index.html': 'src/index.html',
-          'project-2048.html': 'src/project-2048.html',    // 'destination': 'source'
-          'project-mobile.html': 'src/project-mobile.html',    // 'destination': 'source'
-          'project-webperf.html': 'src/project-webperf.html',
-          'views/pizza.html' : 'src/views/pizza.html'    // 'destination': 'source'
+          'src-index.html': 'src/index.html',
+          'src-project-2048.html': 'src/project-2048.html',    // 'destination': 'source'
+          'src-project-mobile.html': 'src/project-mobile.html',    // 'destination': 'source'
+          'src-project-webperf.html': 'src/project-webperf.html',
+          'views/src-pizza.html' : 'src/views/pizza.html'    // 'destination': 'source'
           }
       }
     },
@@ -67,6 +67,9 @@ module.exports = function(grunt) {
       }
      },
      cssmin: {
+       options: {
+        keepSpecialComments: 0
+       },
        target: {
          files: [{
            expand: true,
@@ -87,13 +90,30 @@ module.exports = function(grunt) {
     uglify: {
       target: {
         files: [{
-          'js/perfmatters.min.js': 'src/js/perfmatters.js'
+          'js/perfmatters.min.js': 'src/js/perfmatters.js',
+          'js/analytics.min.js': 'src/js/analytics.js'
         },
         {
           'views/js/main.min.js': 'src/views/js/main.js'
         }]
       }
     },
+    assets_inline: {
+     all: {
+       options: {
+         cssDir: "/css",
+         assetsDir: "/img",
+         inlineImg: true
+       },
+       files: {
+         'index.html': 'src-index.html',
+         'project-2048.html': 'src-project-2048.html',    // 'destination': 'source'
+         'project-mobile.html': 'src-project-mobile.html',    // 'destination': 'source'
+         'project-webperf.html': 'src-project-webperf.html',
+         'views/pizza.html' : 'views/src-pizza.html'    // 'destination': 'source'
+       },
+     },
+   },
   });
 
   // Register customer task for ngrok
@@ -120,7 +140,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   // JS Uglify
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  //Inline all assets
+  grunt.loadNpmTasks('grunt-assets-inline');
 
   // Register default tasks
-  grunt.registerTask('default', ['uglify', 'imagemin', 'cssmin', 'htmlmin', 'pagespeed']);
+  grunt.registerTask('default', ['uglify', 'imagemin', 'cssmin', 'htmlmin', 'pagespeed', 'assets_inline']);
 };
