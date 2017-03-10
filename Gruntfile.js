@@ -42,11 +42,11 @@ module.exports = function(grunt) {
           collapseWhitespace: true
         },
         files: {                                   // Dictionary of files
-          'src-index.html': 'src/index.html',
-          'src-project-2048.html': 'src/project-2048.html',    // 'destination': 'source'
-          'src-project-mobile.html': 'src/project-mobile.html',    // 'destination': 'source'
-          'src-project-webperf.html': 'src/project-webperf.html',
-          'views/src-pizza.html' : 'src/views/pizza.html'    // 'destination': 'source'
+          'index.html': 'src/index.html',
+          'project-2048.html': 'src/project-2048.html',
+          'project-mobile.html': 'src/project-mobile.html',
+          'project-webperf.html': 'src/project-webperf.html',
+          'views/pizza.html' : 'src/views/pizza.html'
           }
       }
     },
@@ -106,11 +106,11 @@ module.exports = function(grunt) {
          inlineImg: true
        },
        files: {
-         'index.html': 'src-index.html',
-         'project-2048.html': 'src-project-2048.html',    // 'destination': 'source'
-         'project-mobile.html': 'src-project-mobile.html',    // 'destination': 'source'
-         'project-webperf.html': 'src-project-webperf.html',
-         'views/pizza.html' : 'views/src-pizza.html'    // 'destination': 'source'
+         'index.html': 'index.html',
+         'project-2048.html': 'project-2048.html',
+         'project-mobile.html': 'project-mobile.html',
+         'project-webperf.html': 'project-webperf.html',
+         'views/pizza.html' : 'views/pizza.html'
        },
      },
    },
@@ -144,5 +144,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-assets-inline');
 
   // Register default tasks
-  grunt.registerTask('default', ['uglify', 'imagemin', 'cssmin', 'htmlmin', 'pagespeed', 'assets_inline']);
+  grunt.registerTask('default', ['uglify', 'imagemin', 'cssmin', 'htmlmin', 'assets_inline', 'pagespeed' ]);
 };
