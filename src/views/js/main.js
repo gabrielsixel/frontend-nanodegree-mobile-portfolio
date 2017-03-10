@@ -402,6 +402,7 @@ var resizePizzas = function(size) {
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
+      // Updates the innerHTML for the label
        pizzaSize.innerHTML = "Small";
         return;
       case "2":
@@ -444,11 +445,17 @@ var resizePizzas = function(size) {
 
    // Iterates through pizza elements on the page and changes their widths
    function changePizzaSizes(size) {
+     // Gets all the Pizzas containers
      var pizzaContainers = document.querySelectorAll(".randomPizzaContainer");
+     // Get the first pizza
      var pizza = document.querySelector(".randomPizzaContainer");
+     // Calculate the new size, based upon a single pizza (all are the same size)
      var dx = determineDx(pizza, size);
+     // Set the new size
      var newwidth = (pizza.offsetWidth + dx) + 'px';
+     // Iterates through all the randomPizzaContainer's
      for (var i = 0; i < pizzaContainers.length; i++) {
+       // Updates all pizzaContainers to new size
        pizzaContainers[i].style.width = newwidth;
      }
    }
@@ -492,22 +499,8 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
-// Got better scroll optimization was pulled from:
+// Scroll optimization was pulled from:
 // https://gist.github.com/Warry/4254579
-
-// Detect css transform
-var cssTransform = (function() {
-    var prefixes = 'transform webkitTransform mozTransform oTransform msTransform'.split(' '),
-        el = document.createElement('div'),
-        cssTransform,
-        i = 0;
-    while( cssTransform === undefined ){
-        cssTransform = document.createElement('div').style[prefixes[i]] !== undefined ? prefixes[i] : undefined
-        i++;
-     }
-     return cssTransform;
- })()
-
 var scroll = window.requestAnimationFrame ||
              window.webkitRequestAnimationFrame ||
              window.mozRequestAnimationFrame ||
@@ -520,6 +513,7 @@ var scroll = window.requestAnimationFrame ||
 
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
+  // check if the window page Y changed
   if (lastPosition == window.pageYOffset) {
         scroll(updatePositions);
         return false;
@@ -527,14 +521,12 @@ function updatePositions() {
 
   frame++;
   window.performance.mark("mark_start_frame");
-
+  // Unecessary layout calls removed
   var top = window.pageYOffset;
-
   var phase = Math.sin(document.body.scrollTop / 1250);
   var items = document.querySelectorAll('.mover');
 
   for (var i = 0; i < items.length; i++) {
-
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
@@ -551,7 +543,7 @@ function updatePositions() {
 }
 
 // runs updatePositions on scroll
-//window.addEventListener('scroll', updatePositions);
+// Scroll requests a Animation Frame decreasing the overhead
 scroll(updatePositions);
 
 
@@ -569,5 +561,4 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
-  //updatePositions();
 });
