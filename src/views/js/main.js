@@ -522,11 +522,14 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
   // Unecessary layout calls removed
-  var top = window.pageYOffset;
-  var phase = Math.sin(document.body.scrollTop / 1250);
+  // Change to a single call to document.body.scrollTop
+  var top = document.body.scrollTop;
+  var phase;
+  // Change to a single select of the .mover itens
   var items = document.querySelectorAll('.mover');
 
   for (var i = 0; i < items.length; i++) {
+    phase = Math.sin((top / 1250) + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
@@ -551,7 +554,8 @@ scroll(updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 17; i++) {
+  // decreasing the amount of pizzas to decrease overhead and amount of itens to animate
+  for (var i = 0; i < 30; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
